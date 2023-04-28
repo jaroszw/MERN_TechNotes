@@ -21,6 +21,7 @@ app.use(cookieParser());
 // app.use(express.static("public"));
 app.use("/", express.static(path.join(__dirname, "public")));
 app.use("/", require("./routes/root"));
+app.use("/users", require("./routes/users"));
 
 app.all("*", (req, res) => {
   res.status(404);
@@ -34,6 +35,7 @@ app.all("*", (req, res) => {
 });
 
 app.use(errorHandler);
+
 mongoose.connection.once("open", () => {
   console.log("Connected to MONGO DB");
   app.listen(PORT, () => {
